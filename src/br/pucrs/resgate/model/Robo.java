@@ -25,6 +25,10 @@ public abstract class Robo implements Comunicavel {
         this.status = StatusRobo.DISPONIVEL;
     }
 
+    /*  este método pode ser futuramente um metodo privado, no qual 
+    pode gastar difernete niveis de bateria dependendo do nivel de risco
+    da missão. (Só uma ideia que achei interessante)
+    */
     public void consumirBateria(double quantidade) {
         this.nivelBateria = Math.max(0.0, this.nivelBateria - quantidade);
         if (this.nivelBateria == 0.0) {
