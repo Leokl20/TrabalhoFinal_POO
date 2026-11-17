@@ -1,4 +1,11 @@
-package Robos;
+package br.pucrs.resgate.model;
+
+import br.pucrs.resgate.enums.NivelRisco;
+import br.pucrs.resgate.enums.StatusMissao;
+import br.pucrs.resgate.enums.StatusRobo;
+import br.pucrs.resgate.enums.TipoTerreno;
+import br.pucrs.resgate.interfaces.Comunicavel;
+
 import java.util.Scanner;
 
 public class Drone extends Robo implements Comunicavel {
@@ -51,7 +58,7 @@ public class Drone extends Robo implements Comunicavel {
             retorno = false;
         }
 
-        if (missao.statusRobo() == StatusRobo.MANUTENCAO || missao.statusRobo() == StatusRobo.INDISPONIVEL) {
+        if (getStatus() == StatusRobo.MANUTENCAO || getStatus() == StatusRobo.INDISPONIVEL) {
 
             System.out.println("Robo está indisponivel para missão!!");
             retorno =  false;
@@ -61,52 +68,64 @@ public class Drone extends Robo implements Comunicavel {
             System.out.println("Altitude ou alcance fora do alcance do drone E Terreno da missão invalido para o drone");
             return false;
 
-        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getNivelRisco() == NivelRisco.BAIXO && missao.statusRobo() == StatusRobo.DISPONIVEL && getNivelBateria() > 10) {
+        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getArea().getNivelRisco() == NivelRisco.BAIXO && getStatus() == StatusRobo.DISPONIVEL && getNivelBateria() > 10) {
 
             System.out.println("Robo pronto para missão!");
-            missao.setStatus(StatusMissao.EM_ANDAMENTO);
+            if (missao.getRoboResponsavel() == null) {
+                missao.atribuirRobo(this);
+            }
+            missao.iniciar();
             setStatus(StatusRobo.EM_MISSAO);
             setMissoesRealizadas(getMissoesRealizadas() + 1);
             consumirBateria(10.0);
 
-            missao.setStatus(StatusMissao.CONCLUIDA);
+            missao.concluir("Missão executada por " + getNome());
             setStatus(StatusRobo.DISPONIVEL);
 
             retorno =  true;
-        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getNivelRisco() == NivelRisco.MEDIO && missao.statusRobo() == StatusRobo.DISPONIVEL && getNivelBateria() > 20) {
+        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getArea().getNivelRisco() == NivelRisco.MEDIO && getStatus() == StatusRobo.DISPONIVEL && getNivelBateria() > 20) {
 
             System.out.println("Robo pronto para missão!");
-            missao.setStatus(StatusMissao.EM_ANDAMENTO);
+            if (missao.getRoboResponsavel() == null) {
+                missao.atribuirRobo(this);
+            }
+            missao.iniciar();
             setStatus(StatusRobo.EM_MISSAO);
             setMissoesRealizadas(getMissoesRealizadas() + 1);
             consumirBateria(20.0);
 
-            missao.setStatus(StatusMissao.CONCLUIDA);
+            missao.concluir("Missão executada por " + getNome());
             setStatus(StatusRobo.DISPONIVEL);
 
             retorno =  true;
 
-        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getNivelRisco() == NivelRisco.ALTO && missao.statusRobo() == StatusRobo.DISPONIVEL && getNivelBateria() > 30) {
+        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getArea().getNivelRisco() == NivelRisco.ALTO && getStatus() == StatusRobo.DISPONIVEL && getNivelBateria() > 30) {
 
             System.out.println("Robo pronto para missão!");
-            missao.setStatus(StatusMissao.EM_ANDAMENTO);
+            if (missao.getRoboResponsavel() == null) {
+                missao.atribuirRobo(this);
+            }
+            missao.iniciar();
             setStatus(StatusRobo.EM_MISSAO);
             setMissoesRealizadas(getMissoesRealizadas() + 1);
             consumirBateria(30.0);
 
-            missao.setStatus(StatusMissao.CONCLUIDA);
+            missao.concluir("Missão executada por " + getNome());
             setStatus(StatusRobo.DISPONIVEL);
             retorno =  true;
 
-        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getNivelRisco() == NivelRisco.CRITICO && missao.statusRobo() == StatusRobo.DISPONIVEL && getNivelBateria() > 50) {
+        } else if (missao.getStatus() == StatusMissao.PENDENTE && missao.getArea().getNivelRisco() == NivelRisco.CRITICO && getStatus() == StatusRobo.DISPONIVEL && getNivelBateria() > 50) {
 
             System.out.println("Robo pronto para missão!");
-            missao.setStatus(StatusMissao.EM_ANDAMENTO);
+            if (missao.getRoboResponsavel() == null) {
+                missao.atribuirRobo(this);
+            }
+            missao.iniciar();
             setStatus(StatusRobo.EM_MISSAO);
             setMissoesRealizadas(getMissoesRealizadas() + 1);
             consumirBateria(50.0);
 
-            missao.setStatus(StatusMissao.CONCLUIDA);
+            missao.concluir("Missão executada por " + getNome());
             setStatus(StatusRobo.DISPONIVEL);
             retorno =  true;
         }

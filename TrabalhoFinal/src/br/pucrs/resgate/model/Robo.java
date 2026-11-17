@@ -1,4 +1,11 @@
-package Robos;
+package br.pucrs.resgate.model;
+
+import br.pucrs.resgate.enums.NivelRisco;
+import br.pucrs.resgate.enums.StatusMissao;
+import br.pucrs.resgate.enums.StatusRobo;
+import br.pucrs.resgate.enums.TipoTerreno;
+import br.pucrs.resgate.interfaces.Comunicavel;
+
 
 //Classe robo com atualizações feitas com a implementação dos metodos "exibirResumo" e "consultarBateria" e o "private missoesRealizadas"
 public abstract class Robo implements Comunicavel {

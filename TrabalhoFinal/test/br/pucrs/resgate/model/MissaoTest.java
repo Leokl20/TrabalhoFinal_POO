@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MissaoTest {
     // Robô mínimo só para teste (ajuste se a interface Comunicavel mudar).
     static class RoboFake extends Robo {
-        RoboFake() { super("R1", "Fake", 100); }
+        RoboFake() { super("R1", "Fake", 100, StatusRobo.DISPONIVEL, 0); }
         @Override public boolean executarMissao(Missao m) { return true; }
         @Override public void enviarMensagem(String s) { }
         @Override public String receberMensagem() { return ""; }
