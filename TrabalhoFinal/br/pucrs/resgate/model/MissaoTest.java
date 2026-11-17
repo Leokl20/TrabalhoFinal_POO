@@ -13,7 +13,7 @@ class MissaoTest {
         RoboFake() { super("R1", "Fake", 100, StatusRobo.DISPONIVEL, 0); }
         @Override public boolean executarMissao(Missao m) { return true; }
         @Override public void enviarMensagem(String s) { }
-        @Override public String receberMensagem() { return ""; }
+        @Override public void receberMensagem(String s) { }
     }
 
     private AreaOperacao area;
